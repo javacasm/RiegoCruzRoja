@@ -167,41 +167,52 @@ Desde ahí podemos activar o desactivar el riego
 
 ## Pantalla LCD
 
+Vamos a conectar una pantalla LCD (como las máquinas de vending)
+
+La conexión es muy sencilla puesto que la LCD tiene las mismas 4 conexiones que la placa Sensor Shield
 
 ![](./images/wemos-medidor-humedad-LCD_bb.png)
 
-```
-Wemos R32 D1
-relé - pin 26
-pila 9v
-cable usb
-bomba de riego - contectada al relé
-sensor de humedad - pin 4
-Pantalla LCD I2C
-```
+
+* Wemos R32 D1
+* relé - pin 26
+* pila 9v
+* cable usb
+* bomba de riego - contectada al relé
+* sensor de humedad - pin 4
+* Pantalla LCD I2C
+
+En el [programa](http://www.arduinoblocks.com/web/project/1148717) añadimos la configuración de la pantalla donde necesitamos saber el número de caracteres que tiene (2 filas y 16 columnas) y la dirección que es un número que nos da el fabricante (0x27 en la mayoría) 
+
+Mostraremos en la pantalla el valor de la humedad del suelo y el estado del riego
 
 ![](./images/wemos_riego_wifi_lcd.png)
 
 ## Riego + LCD + Sensor de humedad y temperatura DHT11 
 
+Vamos a añadir ahora un sensor de temperatura y humedad DHT11 conectado al pin 14
+
 ![](./images/wemos-medidor-humedad-LCD-DHT11_bb.png)
 
 
-```
-Wemos R32 D1
-relé - pin 26
-pila 9v
-cable usb
-bomba de riego - contectada al relé
-sensor de humedad - pin 4
-Pantalla LCD I2C
-sensor DHT11 en pin 1
-```
+* Wemos R32 D1
+* relé - pin 26
+* pila 9v
+* cable usb
+* bomba de riego - contectada al relé
+* sensor de humedad - pin 4
+* Pantalla LCD I2C
+* sensor DHT11 en pin 1
+
+Mostraremos los datos de los sensores y el estado del riego/relé en la pantalla
+
 [Proyecto](http://www.arduinoblocks.com/web/project/1148733)
 
 ![](./images/wemos_riego_wifi_lcd_dht11.png)
 
 ## Apéndice ESP32
+
+Vamos a ver los detalles de la placa
 
 ![Pinout](./images/ESP32Pinout.png)
 
@@ -259,17 +270,16 @@ Imágenes cortesía de
 
 ## Configuración del IDE de Arduino
 
-En Preferencias
+Si queremos usar el código de los programas tendremos que configurar el IDE de Arduino
+
+En el menú Preferencias 
+
 ![](./images/ESP32Preferencias.png)
 
 Añadimos la direccion del paquete de hardware de Espressif 
 
-```
-Instalacion Wemos R32 D1
-
 [https://dl.espressif.com/dl/package_esp32_index.json](https://dl.espressif.com/dl/package_esp32_index.json)
 
-```
 
 ![](./images/ESP32AddURL.png)
 
