@@ -1,47 +1,51 @@
 # Sistema de riego automatico
 
-![](./images/Licencia_CC_peque.png)
+![](./images/Licencia_CC_peque.png) 
+
+by @javacasm - José Antonio Vacas
 
 
 [http://bit.ly/RiegoCruzRoja](http://bit.ly/RiegoCruzRoja)
 
-Instalacion Wemos R32 D1
-
-[https://dl.espressif.com/dl/package_esp32_index.json](https://dl.espressif.com/dl/package_esp32_index.json)
-
+Vamos a realizar un sistema de riego automático (en función de la humedad del suelo) y que también podremos activar remotamente vía wifi
 
 ## Hardware
 
-ESP32 Wemos D1 R32
+Usaremos la placa ESP32 Wemos D1 R32, compatible con Arduino y que nos permite conexiones wifi y bluetooth
 
 ![](./images/wemos_D1_R32.png)
 
+Este placa tiene el mismo formato que el conocido Arduino UNO y es compatible con esta placa a nivel de conexión.
+
+Para facilitar la conexión de los sensores y actuadores usaremos una placa "Sensor Shield v5"
 
 ![](./images/arduino_sensor_shield.png)
 
+Que nos proporciona conexión para V, GND, Señal para cada sensor. Por ello usaremos sensores en formato módulo que nos facilita la conexión, puesto que los módulos tiene las mismas 3 conexiones: V, GND y S
+
 ## Programación con bloques
 
-### Herramientas de programación: Arduinoblocks
+Para programar usaremos una herramienta web de programación con bloques Arduinoblocks
 
 Comenzaremos usando [ArduinoBlocks.com](http://www.arduinoblocks.com): una herramienta de programación con bloques ideal para iniciarse.
 
-Instalamos [ArduinoBlock Connector](http://www.arduinoblocks.com/web/site/abconnector5)
+Instalamos [ArduinoBlock Connector](http://www.arduinoblocks.com/web/site/abconnector5) que nos permite sincronizar el programa en el estamos trabajando con la placa
 
 ![](./images/ArduinoBlockConnector.png)
 
-[Creamos nuestra cuenta](http://www.arduinoblocks.com/web/site/register)
+[Creamos nuestra cuenta](http://www.arduinoblocks.com/web/site/register) donde se guardarán nuestros proyectos:
 
 ![](./images/ArduinoBlocks_registro.png)
 
 ## Creando proyectos
 
-Creamos proyecto personal con la placa ESP32 STEAMakers
+Creamos proyecto personal con la placa ESP32 STEAMakers, que no es exactamente la nuestra pero sí es compatible
 
 ![](./images/arduinoblocks_creando_proyecto.png)
 
-Documentaremos la descripción del proyecto y los componentes que vamos a usar
+Documentaremos la descripción del proyecto y los componentes que vamos a usar en cada montaje.
 
-## LED 
+## Encendiendo el LED de la placa
 
 Usaremos el led que incluye la placa Wemos D1 que está conectado al pin 2
 
@@ -65,8 +69,11 @@ Necesitamos:
 * Wemos R32 D1
 * Cable USB
 
+Veremos como el led va cambiando su brillo en 4 niveles.
+
 ### Relé
 
+Ahora vamos a conectar un relé para poder controlar dispositivos de más potencia
 
 1. ¿Qué es un **relé**? un relé es un interruptor eléctrico que podemos accionar electrónicamente con una pequeña corriente y que funciona casi siempre electromecánicamente (un electroimán que atrae un contacto eléctrico) de ahí el 'clic-clic' que hacen al funcionar. 
 ![](./images/rele-electromagnetico.png)
@@ -115,14 +122,16 @@ Los dos circuitos eléctricos, de alta potencia (el motor) y el de baja potencia
 
 ## Sistema de riego
 
-Versiones:
+Podemos hacer distintas versiones:
 
-* Tiempo
-* Humedad del suelo
-* Humedad y lluvia
+* Tiempo: actúa como un temporizador, que se activará con cierta frecuencia. Tiene el inconveniente de que puede que reguemos sin necesidad, si ha llovido por ejemplo
+* Humedad del suelo: medimos la humedad del suelo y por debajo o encima de un valor activamos o apagamos el riego
+* Humedad y lluvia: detecta si llueve para en ese caso no activar el riego
 
 
 ## Medida de humedad
+
+Medimos la humedad del suelo y por encima/debajo de un valor activamos/apagamos el riego. 
 
 ![](./images/Medidor_humedad.png)
 
@@ -139,14 +148,58 @@ Necesitamos:
 
 ![](./images/wemos_medidor_humedad_bb.png)
 
+Tenemos que determinar el valor de nuestro sensor que vamos a usar como umbral
+
 
 ## Wifi
+
+Creamos una red wifi a la que nos conectamos para poder controlar el riego
 
 [Proyecto wifi](http://www.arduinoblocks.com/web/project/1005666)
 
 ![](./images/riego_wifi.png)
 
+![](./images/wemos_riego_wifi.png)
 
+Para ver el resultado o para controlarlo tenemos que conectarnos al wifi y en un navegador abrir la dirección http://192.168.4.1 
+
+Desde ahí podemos activar o desactivar el riego
+
+## Pantalla LCD
+
+
+![](./images/wemos-medidor-humedad-LCD_bb.png)
+
+```
+Wemos R32 D1
+relé - pin 26
+pila 9v
+cable usb
+bomba de riego - contectada al relé
+sensor de humedad - pin 4
+Pantalla LCD I2C
+```
+
+![](./images/wemos_riego_wifi_lcd.png)
+
+## Riego + LCD + Sensor de humedad y temperatura DHT11 
+
+![](./images/wemos-medidor-humedad-LCD-DHT11_bb.png)
+
+
+```
+Wemos R32 D1
+relé - pin 26
+pila 9v
+cable usb
+bomba de riego - contectada al relé
+sensor de humedad - pin 4
+Pantalla LCD I2C
+sensor DHT11 en pin 1
+```
+[Proyecto](http://www.arduinoblocks.com/web/project/1148733)
+
+![](./images/wemos_riego_wifi_lcd_dht11.png)
 
 ## Apéndice ESP32
 
@@ -212,7 +265,10 @@ En Preferencias
 Añadimos la direccion del paquete de hardware de Espressif 
 
 ```
-https://dl.espressif.com/dl/package_esp32_index.json
+Instalacion Wemos R32 D1
+
+[https://dl.espressif.com/dl/package_esp32_index.json](https://dl.espressif.com/dl/package_esp32_index.json)
+
 ```
 
 ![](./images/ESP32AddURL.png)
